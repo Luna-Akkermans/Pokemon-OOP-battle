@@ -1,19 +1,42 @@
-﻿using System;
-using System.Xml.Linq;
-
-namespace Pokemon_OOP_battle
+﻿namespace Pokemon_OOP_battle
 {
-    public class Pokemon
+    public abstract class Pokemon
     {
         public string Name { get; set; }
-        public string strength { get; set; }
-        public string weakness { get; set; }
+        public string Strength { get; set; }
+        public string Weakness { get; set; }
 
-
-        //Scream Method 
-        public string WarCry()
+        public Pokemon(string name, string strength, string weakness)
         {
-            return Name + " yells!";
+            Name = name;
+            Strength = strength;
+            Weakness = weakness;
+        }
+
+        public abstract string WarCry();
+    }
+
+    public class Squirtle : Pokemon
+    {
+        public Squirtle(string name) : base(name, "water", "leaf")
+        {
+        }
+
+        public override string WarCry()
+        {
+            return $"{Name} yells!";
+        }
+    }
+
+    public class Bulbasaur : Pokemon
+    {
+        public Bulbasaur(string name) : base(name, "grass", "fire")
+        {
+        }
+
+        public override string WarCry()
+        {
+            return $"{Name} yells!";
         }
     }
 }

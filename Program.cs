@@ -6,41 +6,44 @@ class Program
 {
     static void Main()
     {
+        // Initializing 
         bool GAME = true;
+        Battle battle = new Battle();
+
+        Console.WriteLine("Welcome to the Pokemon Battle Simulator!");
         while (GAME)
         {
-            List<Pokeball> beltOfAsh = new List<Pokeball>
+            // Ask if they want to start.
+            // User gives a name to the first trainer:
+            Console.Write("Enter the name for the first trainer: ");
+            string firstTrainerName = Console.ReadLine();
+            Trainer firstTrainer = new Trainer(firstTrainerName, new List<Pokeball>
             {
-                //Todo:"add extra pokeballs to belt":
-                new Pokeball { pokemon = new Pokemon { Name = "Sparky", strength = "Fire", weakness = "Water" } },
-                new Pokeball { pokemon = new Pokemon { Name = "Blah", strength = "Fire", weakness = "Water" } },
-                new Pokeball { pokemon = new Pokemon { Name = "Pikachu", strength = "Fire", weakness = "Water" } }
+               new Pokeball { pokemon = new Squirtle("Squirtle") },
+               new Pokeball { pokemon = new Bulbasaur("Bulbasaur") }
+            });
 
-
-            };
-            Trainer ash = new Trainer("Ash", beltOfAsh);
-
-            List<Pokeball> beltOfGary = new List<Pokeball>
+            Console.Write("Enter a name for the second trainer: ");
+            string secondTrainerName = Console.ReadLine();
+            Trainer secondTrainer = new Trainer(secondTrainerName, new List<Pokeball>
             {
-                //Todo:"add extra pokeballs to belt":
-                new Pokeball { pokemon = new Pokemon { Name = "Flufflare", strength = "Fire", weakness = "Water" } },
-                new Pokeball { pokemon = new Pokemon { Name = "Aquashade", strength = "Fire", weakness = "Water" } },
-                new Pokeball { pokemon = new Pokemon { Name = "Thundertail", strength = "Fire", weakness = "Water" } }
-            };
-            Trainer gary = new Trainer("Gary", beltOfGary);
+               new Pokeball { pokemon = new Bulbasaur("Bulbasaur") },
+               new Pokeball { pokemon = new Squirtle("Squirtle") }
+            });
 
-            //Ask user for new name of the trainers.
-            Console.Write("Enter a name for Ash: ");
-            ash.Name = Console.ReadLine();
-            Console.Write("Enter a name for Gary: ");
-            gary.Name = Console.ReadLine();
-
-            for (int i = 0; i < beltOfAsh.Count; i++)
+            // Alternate between trainers for each Pokeball
+            for (int pokeballIndex = 0; pokeballIndex < firstTrainer.Belt.Count; pokeballIndex++)
             {
-                ash.ThrowPokeball(i);
-                gary.ThrowPokeball(i);
-                ash.ThrowPokeball(i);
-                gary.ThrowPokeball(i);
+                battle.PerformBattle(firstTrainer, secondTrainer);
+            }
+
+            Console.Write("Do you want to play again? (Y/N): ");
+            string playAgainResponse = Console.ReadLine();
+
+            if (playAgainResponse.ToUpper() != "Y")
+            {
+                GAME = false; // Exit the game if the user doesn't want to play again
+                Environment.Exit(0);
             }
         }
     }
