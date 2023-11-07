@@ -1,17 +1,19 @@
 ﻿using System;
+using System.Xml.Linq;
 
 namespace Pokemon_OOP_battle
 {
     public class Pokemon
     {
         public string Name { get; set; }
-        public string WarCry { get; set; }
+        public string strength { get; set; }
+        public string weakness { get; set; }
 
 
-        //Name Method 
-        public void NameChange(string reName)
+        //Scream Method 
+        public string WarCry()
         {
-            Name = reName;
+            return Name + " yells!";
         }
     }
 }

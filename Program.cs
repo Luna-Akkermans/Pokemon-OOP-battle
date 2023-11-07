@@ -1,52 +1,47 @@
 ﻿using Pokemon_OOP_battle;
 using System;
+using System.Collections.Generic;
 
 class Program
 {
-static void Main()
+    static void Main()
     {
-        Pokemon charmander = new Pokemon();
-
-        //Starting the game:
-        Console.WriteLine("Do you want to start the game?");
-        string userInput = Console.ReadLine().ToLower();
-        if(userInput == "yes")
+        bool GAME = true;
+        while (GAME)
         {
-            //Start of game
-            Console.WriteLine("Let's start by giving the Pokemon a name, what is the name of the pokemon?");
-            charmander.Name = Console.ReadLine();
-
-            //Creation of the warcry
-            Console.WriteLine($"Let's start by giving {charmander.Name} a warcry, what is the warcry?");
-            charmander.WarCry = Console.ReadLine();
-
-            Console.WriteLine($"The {charmander.Name} shouts its warcry:");
-            while (true)
+            List<Pokeball> beltOfAsh = new List<Pokeball>
             {
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine(charmander.WarCry);
-            }
-                //Ask the user if they want to change the name
-                Console.WriteLine("Do you wish to change the name?");
-                userInput = Console.ReadLine().ToLower();
+                //Todo:"add extra pokeballs to belt":
+                new Pokeball { pokemon = new Pokemon { Name = "Sparky", strength = "Fire", weakness = "Water" } },
+                new Pokeball { pokemon = new Pokemon { Name = "Blah", strength = "Fire", weakness = "Water" } },
+                new Pokeball { pokemon = new Pokemon { Name = "Pikachu", strength = "Fire", weakness = "Water" } }
 
-                //If user wants
-                if (userInput == "yes")
-                {
-                    Console.WriteLine("Enter the new name for your Pokemon:");
-                    string newName = Console.ReadLine();
-                    charmander.NameChange(newName);
-                }
-                else if (userInput == "no")
-                {
-                    Environment.Exit(0);
-                }
+
+            };
+            Trainer ash = new Trainer("Ash", beltOfAsh);
+
+            List<Pokeball> beltOfGary = new List<Pokeball>
+            {
+                //Todo:"add extra pokeballs to belt":
+                new Pokeball { pokemon = new Pokemon { Name = "Flufflare", strength = "Fire", weakness = "Water" } },
+                new Pokeball { pokemon = new Pokemon { Name = "Aquashade", strength = "Fire", weakness = "Water" } },
+                new Pokeball { pokemon = new Pokemon { Name = "Thundertail", strength = "Fire", weakness = "Water" } }
+            };
+            Trainer gary = new Trainer("Gary", beltOfGary);
+
+            //Ask user for new name of the trainers.
+            Console.Write("Enter a name for Ash: ");
+            ash.Name = Console.ReadLine();
+            Console.Write("Enter a name for Gary: ");
+            gary.Name = Console.ReadLine();
+
+            for (int i = 0; i < beltOfAsh.Count; i++)
+            {
+                ash.ThrowPokeball(i);
+                gary.ThrowPokeball(i);
+                ash.ThrowPokeball(i);
+                gary.ThrowPokeball(i);
             }
-        }
-        else if (userInput == "no")
-        {
-            Environment.Exit(0);
         }
     }
 }
