@@ -15,7 +15,8 @@ namespace Pokemon_OOP_battle
             Console.WriteLine("Pokeball opened");
             Console.WriteLine(pokemon.WarCry());
         }
-        public void Close() 
+
+        public void Close()
         {
             Console.WriteLine("The pokeball is closed.");
         }

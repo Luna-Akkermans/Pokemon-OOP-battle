@@ -23,10 +23,43 @@ namespace Pokemon_OOP_battle
             Belt[number].Open();
         }
 
-        public void ReturnPokemon(int number)
+        public void KillPokemon(Pokemon pokemon)
+        {
+            foreach (Pokeball pokeball in Belt.ToList())
+            {
+                if (pokeball.pokemon == pokemon)
+                {
+                    Belt.Remove(pokeball);
+                    Console.WriteLine($"{Name}'s pokemon {pokeball.pokemon.Name} was killed");
+                }
+            }
+        }
+
+        public void ReturnPokemon(Pokemon pokemon)
         {
             Console.WriteLine($"{Name} has returned their pokemon");
-            Belt[number].Close();
+            foreach (Pokeball pokeball in Belt.ToList())
+            {
+                if (pokeball.pokemon == pokemon)
+                {
+                    pokeball.Close();
+                }
+            }
+        }
+
+        public Pokemon ChoosePokemon()
+        {
+            Random rand = new Random();
+            int index = rand.Next(0, Belt.Count);
+            Pokemon pokemon = Belt[index].pokemon;
+            ThrowPokeball(index);
+
+            return pokemon;
+        }
+
+        public void countPokemon()
+        {
+            Console.WriteLine(Name + " has " + Belt.Count + " pokemon left.");
         }
     }
 }
