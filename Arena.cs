@@ -1,62 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pokemon_OOP_battle
+﻿namespace Pokemon_OOP_battle
 {
-    public static class Arena
+    internal class Arena
     {
-        public static int RoundCount = 1;
-        public static int BattleCount = 1;
-        public static Trainer lastTrainerWin;
-        public static Pokemon FirstActivePokemon = null;
-        public static Pokemon SecondActivePokemon = null;
-        public static Battle battle = new Battle();
+        static readonly int maxScore = 5;
 
-        public static void StartBattle(Trainer firstTrainer, Trainer secondTrainer)
+        public static void SetScore()
         {
-            Console.WriteLine($"\nBATTLE {BattleCount} HAS STARTED\n");
-            battle.PerformBattle(firstTrainer, secondTrainer);
+            Console.Title = $"{Battle.firstTrainerName}: {Trainer.trainerOneScore} | {Battle.secondTrainerName}: {Trainer.trainerTwoScore}";
         }
 
-        public static void Reset()
+        /// <summary>
+        /// Check for scoreOne & scoreTwo which of those two is highest.
+        /// </summary>
+        /// <returns>The winning trainer</returns>
+        public static bool CheckScore(int scoreOne, int scoreTwo)
         {
-            RoundCount = 1;
-            FirstActivePokemon = null;
-            SecondActivePokemon = null;
+            if (scoreOne == maxScore) return false;
+            if (scoreTwo == maxScore) return false;
+            return true;
         }
 
-        public static void DeclareWinner(Trainer trainer)
+
+        /// <summary>
+        /// Ask if the player want to play again
+        /// </summary>
+        public static bool AskPlayAgain()
         {
-            Console.WriteLine(trainer.Name + $" has won the {RoundCount} round!");
-            lastTrainerWin = trainer;
+            Console.Write("Do you want to play again? (Y/N): ");
+            string playAgainResponse = Console.ReadLine();
+            Trainer.trainerOneScore = 0;
+            Trainer.trainerTwoScore = 0;
+
+            if (playAgainResponse.ToUpper() == "Y")
+            {
+                Console.Clear();
+                return true;
+            }
+            return false;
         }
 
-        public static void DeclareBattleDraw()
+        /// <summary>
+        /// Determine who won by comparing scores.
+        /// </summary>
+        public static bool WhoWon(int one, int two)
         {
-            Console.WriteLine("\nThe battle was a draw.\n");
-        }
-
-        public static void DeclareRoundDraw()
-        {
-            Console.WriteLine($"The {RoundCount} round was a draw");
-        }
-
-        public static void endRound()
-        {
-            Console.WriteLine($"\nRound {RoundCount} has ended.");
-            RoundCount += 1;
-            Console.WriteLine("\n-------------------------------\n");
-        }
-
-        public static void EndBattle(Trainer trainer)
-        {
-            Console.WriteLine($"The battle is over. {trainer.Name} has won.");
-            BattleCount++;
-            Reset();
+            if (one > two) return true;
+            return false;
         }
     }
 }

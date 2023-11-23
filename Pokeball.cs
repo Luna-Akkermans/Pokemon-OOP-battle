@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pokemon_OOP_battle
+﻿namespace Pokemon_OOP_battle
 {
     public class Pokeball
     {
@@ -12,8 +6,15 @@ namespace Pokemon_OOP_battle
 
         public void Open()
         {
-            Console.WriteLine("Pokeball opened");
-            Console.WriteLine(pokemon.WarCry());
+            try
+            {
+                Console.WriteLine("Pokeball opened");
+                Console.WriteLine(pokemon.WarCry());
+            } catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
         }
 
         public void Close()
